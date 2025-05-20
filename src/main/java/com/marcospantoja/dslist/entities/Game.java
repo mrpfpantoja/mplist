@@ -16,31 +16,38 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
 
-    @Column(name ="game_year")
+    private String title;
+    private Double score;
+
+    @Column(name = "game_year")
     private Integer year;
+
     private String genre;
     private String platforms;
+    @Column(name = "img_url")
     private String imgUrl;
-    private String shortDescription;
-    private String longDescription;
 
+    @Column(name = "short_description", columnDefinition = "TEXT")
+    private String shortDescription;
+
+    @Column(name = "long_description", columnDefinition = "TEXT")
+    private String longDescription;
 
     public Game() {
     }
 
-    public Game(Long id, String title, Integer year, String genre, String platforms, String imgUrl,
-                String shortDescription, String longDescription, Integer position) {
+    public Game(Long id, String title, Double score, Integer year, String genre, String platforms, String imgUrl,
+                String shortDescription, String longDescription) {
         this.id = id;
         this.title = title;
+        this.score = score;
         this.year = year;
         this.genre = genre;
         this.platforms = platforms;
         this.imgUrl = imgUrl;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
-       
     }
 
     public Long getId() {
@@ -57,6 +64,14 @@ public class Game {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
     }
 
     public Integer getYear() {
@@ -109,28 +124,16 @@ public class Game {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
+        return Objects.hash(id);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
+        if (!(obj instanceof Game))
             return false;
         Game other = (Game) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+        return Objects.equals(id, other.id);
     }
-
-    // Getters and Setters
 }
