@@ -25,10 +25,10 @@ public class Game {
     private Double score;
     private String imgUrl;
 
-    @Column(name = "short_description", columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String shortDescription;
 
-    @Column(name = "long_description", columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String longDescription;
 
     public Game() {
