@@ -26,7 +26,6 @@ public class GameController {
         GameDTO result = gameService.findById(id);
         return result;
     }
-    // Corrigido: Endpoint GET para listar todos os jogos
     @GetMapping
     public List<GameMinDTO> findAll() {
         List<GameMinDTO> result = gameService.findAll();
