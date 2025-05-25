@@ -10,6 +10,7 @@ import com.marcospantoja.dslist.dto.GameListDTO;
 import com.marcospantoja.dslist.entities.GameList;
 import com.marcospantoja.dslist.repositories.GameListRepository;
 import com.marcospantoja.dslist.repositories.GameRepository;
+import com.marcospantoja.projections.GameMinProjection;
 
 @Service
 public class GameListService {
@@ -31,5 +32,20 @@ public class GameListService {
 		GameList entity = gameListRepository.findById(id).get();
 		return new GameListDTO(entity);
 	}
+
+	public void move(Long listId, int sourceIndex,int destinationIndex) {
+		List<GameMinProjection> list = gameRepository.searchByList(listId);
+		GameMinProjection obj = list.remove(sourceIndex);
+		
+		list.add(destinationIndex, obj);
+		int min = sourceIndex < destinationIndex ? sourceIndex : destinationIndex;
+		int max = sourceIndex < destinationIndex ? destinationIndex : sourceIndex;
+
+		for (int i = min; i <= max; i++) {
+			gameListRepository.updateBelongingPosition(listId, list.get(i).getId(), i);
+		}
+
+	}
+
 }
 
